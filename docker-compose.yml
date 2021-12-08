@@ -1,0 +1,31 @@
+version: "3.8"
+
+networks:
+  actionhero-nw:
+    driver: bridge
+
+services:
+  actionhero-app:
+    container_name: actionhero-app
+    build:
+      context: .
+      target: base
+    environment:
+      - REDIS_HOST=actionhero-redis
+    volumes:
+      - ./pids:/app/pids
+      - ./public:/app/public
+      - ./src:/app/src
+      - ./node_modules:/app/node_modules
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - actionhero-nw
+  actionhero-redis:
+    container_name: actionhero-redis
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - actionhero-nw
