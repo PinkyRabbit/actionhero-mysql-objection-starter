@@ -11,7 +11,11 @@ services:
       context: .
       target: base
     environment:
+      - NODE_ENV=development
       - REDIS_HOST=actionhero-redis
+      - MYSQL_HOST=actionhero-mysql
+      - MYSQL_DATABASE=actionhero-db
+      - MYSQL_PASSWORD=yes
     volumes:
       - ./pids:/app/pids
       - ./public:/app/public
@@ -27,5 +31,19 @@ services:
     image: 'bitnami/redis:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    networks:
+      - actionhero-nw
+  actionhero-mysql:
+    container_name: actionhero-mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_DATABASE=actionhero-db
+      - MYSQL_ROOT_PASSWORD=yes
+    ports:
+      - "3306:3306"
     networks:
       - actionhero-nw

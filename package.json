@@ -8,10 +8,13 @@
   },
   "dependencies": {
     "actionhero": "28.0.2",
-    "ws": "latest",
     "ioredis": "latest",
     "ioredis-mock": "latest",
-    "winston": "latest"
+    "knex": "^0.95.14",
+    "mysql": "^2.18.1",
+    "objection": "^3.0.0",
+    "winston": "latest",
+    "ws": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",
@@ -33,7 +36,9 @@
     "pretest": "npm run build && npm run lint",
     "build": "tsc --sourceMap false --declaration",
     "lint": "prettier --check src/*/** __tests__/*/**",
-    "pretty": "prettier --write src/*/** __tests__/*/**"
+    "pretty": "prettier --write src/*/** __tests__/*/**",
+    "ah:action": "actionhero generate-action --name",
+    "ah:init": "actionhero generate-initializer --name"
   },
   "jest": {
     "testEnvironment": "node",
