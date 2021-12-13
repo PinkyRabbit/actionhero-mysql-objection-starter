@@ -13,6 +13,9 @@
     "knex": "^0.95.14",
     "mysql": "^2.18.1",
     "objection": "^3.0.0",
+    "objection-js-soft-delete": "^3.0.1",
+    "objection-unique": "^1.2.2",
+    "objection-visibility": "^1.1.0",
     "winston": "latest",
     "ws": "latest"
   },
