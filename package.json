@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "actionhero": "28.0.2",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
     "ioredis": "latest",
     "ioredis-mock": "latest",
     "knex": "^0.95.14",
@@ -20,9 +22,11 @@
     "ws": "latest"
   },
   "devDependencies": {
-    "@types/node": "latest",
+    "@types/bcrypt": "^5.0.0",
     "@types/jest": "latest",
+    "@types/node": "latest",
     "jest": "latest",
+    "nodemon": "^2.0.15",
     "prettier": "latest",
     "ts-jest": "latest",
     "ts-node-dev": "latest",
@@ -30,11 +34,13 @@
     "typescript": "latest"
   },
   "scripts": {
-    "postinstall": "npm run build",
-    "dev": "ts-node-dev --no-deps --transpile-only ./src/server",
-    "debug": "tsc && ts-node-dev --transpile-only --no-deps --inspect -- ./src/server ",
-    "start": "node ./dist/server.js",
     "actionhero": "actionhero",
+    "postinstall": "npm run build",
+    "start": "node ./dist/server.js",
+    "dev": "ts-node-dev --no-deps --transpile-only ./src/server",
+    "debug": "tsc && ts-node-dev --transpile-only --no-deps --inspect -- ./src/server",
+    "nodemon": "nodemon --config nodemon.json",
+    "nodemon:debug": "nodemon --config nodemon.json --inspect-brk src/server.ts",
     "test": "jest",
     "pretest": "npm run build && npm run lint",
     "build": "tsc --sourceMap false --declaration",

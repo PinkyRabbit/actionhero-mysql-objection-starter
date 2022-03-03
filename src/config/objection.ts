@@ -1,5 +1,6 @@
 import * as path from "path";
 import { Knex } from "knex";
+import { ActionheroConfigInterface } from "actionhero";
 
 const { MYSQL_HOST, MYSQL_DATABASE, MYSQL_PASSWORD } = process.env;
 
@@ -25,8 +26,8 @@ const seeds = {
 };
 
 export const DEFAULT = {
-  [namespace]: (): Knex.Config => {
-    return {
+  [namespace]: () => {
+    const config: Knex.Config  = {
       client: 'mysql',
       connection: {
         database: MYSQL_DATABASE,
@@ -43,5 +44,6 @@ export const DEFAULT = {
       seeds,
       debug: true,
     };
+    return config as any;
   },
 };

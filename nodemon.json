@@ -1,0 +1,13 @@
+{
+    "ignore": [".git", "node_modules/", "dist/", "pids", "coverage/"],
+    "watch": ["src/"],
+    "exec": "ts-node-dev --no-deps --transpile-only ./src/server",
+    "env": {
+      "NODE_ENV": "development",
+      "REDIS_HOST": "0.0.0.0",
+      "MYSQL_HOST": "0.0.0.0",
+      "MYSQL_DATABASE": "actionhero-db",
+      "MYSQL_PASSWORD": "yes"
+    },
+    "ext": "ts,json,html"
+  }

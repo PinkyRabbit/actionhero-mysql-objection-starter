@@ -1,0 +1,28 @@
+version: "3.8"
+
+networks:
+  actionhero-nw:
+    driver: bridge
+
+services:
+  actionhero-app:
+    container_name: actionhero-app
+    build:
+      context: .
+      target: base
+    environment:
+      - NODE_ENV=development
+      - REDIS_HOST=actionhero-redis
+      - MYSQL_HOST=actionhero-mysql
+      - MYSQL_DATABASE=actionhero-db
+      - MYSQL_PASSWORD=yes
+    volumes:
+      - ./pids:/app/pids
+      - ./public:/app/public
+      - ./src:/app/src
+      - ./node_modules:/app/node_modules
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - actionhero-nw
