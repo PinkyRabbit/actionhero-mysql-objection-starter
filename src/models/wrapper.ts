@@ -1,6 +1,6 @@
 import { Model, compose } from 'objection';
 // @ts-ignore
-import objectionUnique from 'objection-unique';
+import * as objectionUnique from 'objection-unique';
 import objectionSoftDelete from 'objection-js-soft-delete';
 import { default as visibility } from 'objection-visibility';
 

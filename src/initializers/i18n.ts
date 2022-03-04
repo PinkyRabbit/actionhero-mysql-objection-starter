@@ -19,8 +19,8 @@ export class I18nInitializer extends Initializer {
   constructor() {
     super();
     this.name = "i18n initializer";
-    this.loadPriority = 100;
-    this.startPriority = 100;
+    this.loadPriority = 101;
+    this.startPriority = 101;
     this.stopPriority = 7777;
   }
 

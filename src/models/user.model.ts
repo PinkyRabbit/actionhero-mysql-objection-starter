@@ -1,9 +1,11 @@
 import { wrapper } from "./wrapper";
 import {RolesEnum} from "../enums";
 
-const Model = wrapper(true, ['username', 'email']);
+const Model = wrapper(true, ['email']);
 
 export class User extends Model {
+    email: string;
+    password: string;
     created_at: string;
     updated_at: string;
     role: RolesEnum;

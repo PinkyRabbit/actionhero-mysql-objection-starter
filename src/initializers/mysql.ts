@@ -14,8 +14,8 @@ export class MySqlInitializer extends Initializer {
   constructor() {
     super();
     this.name = "Objection initializer";
-    this.loadPriority = 1000;
-    this.startPriority = 1000;
+    this.loadPriority = 100;
+    this.startPriority = 100;
     this.stopPriority = 7777;
   }
 

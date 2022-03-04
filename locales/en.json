@@ -1,5 +1,10 @@
 {
-    "v": {
-        "email": "Invalid email. Please check it."
+    "err": {
+        "v": {
+            "email": "Invalid email. Please check it."
+        },
+        "user": {
+            "exists": "Email is already taken by other users"
+        }
     }
 }
