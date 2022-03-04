@@ -9,5 +9,6 @@
       "MYSQL_DATABASE": "actionhero-db",
       "MYSQL_PASSWORD": "yes"
     },
-    "ext": "ts,json,html"
+    "ext": "ts,json,html",
+    "delay": "2500"
   }
