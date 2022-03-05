@@ -1,4 +1,3 @@
-import * as path from "path";
 import { Knex } from "knex";
 import { ActionheroConfigInterface } from "actionhero";
 
@@ -12,36 +11,21 @@ declare module "actionhero" {
   }
 }
 
-const objectionDirectory = path.join(__dirname, '../../objection')
-const migrations = {
-  directory: path.join(objectionDirectory, './migrations'),
-  stub: path.join(objectionDirectory, './stub/migrations'),
-  extension: 'ts',
-  loadExtensions: ['.js'],
-}
-const seeds = {
-  directory: path.join(objectionDirectory, './seeds'),
-  stub: path.join(objectionDirectory, './stub/seeds'),
-  extension: 'ts',
-};
-
 export const DEFAULT = {
   [namespace]: () => {
     const config: Knex.Config  = {
       client: 'mysql',
       connection: {
-        database: MYSQL_DATABASE,
-        host: MYSQL_HOST,
+        database: MYSQL_DATABASE || "actionhero-db",
+        host: MYSQL_HOST || "0.0.0.0",
         port: 3306,
         user: 'root',
-        password: MYSQL_PASSWORD,
+        password: MYSQL_PASSWORD || "yes",
       },
       pool: {
         min: 2,
         max: 10,
       },
-      migrations,
-      seeds,
       debug: true,
     };
     return config as any;

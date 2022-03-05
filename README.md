@@ -15,3 +15,9 @@ _visit www.actionherojs.com for more information_
 ## To Test:
 
 `npm test`
+
+## knex
+
+`npm run knex migrate:make create-users`
+
+Migration cheatsheet into knex/README.md

@@ -51,7 +51,8 @@
     "lint": "prettier --check src/*/** __tests__/*/**",
     "pretty": "prettier --write src/*/** __tests__/*/**",
     "ah:action": "actionhero generate-action --name",
-    "ah:init": "actionhero generate-initializer --name"
+    "ah:init": "actionhero generate-initializer --name",
+    "knex": "knex --knexfile knex/knexfile.ts"
   },
   "jest": {
     "testEnvironment": "node",
