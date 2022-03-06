@@ -1,12 +1,13 @@
-import { Action, ActionProcessor, api } from "actionhero";
+import { Action, ActionProcessor, api } from 'actionhero';
 import * as Joi from 'joi';
-import { UserModel } from "../../models";
+import { ICreateUser } from './create.user.d';
+import UserModel from '../../models/user.model';
 
 export class CreateUser extends Action {
   constructor() {
     super();
-    this.name = "user.create";
-    this.description = "create user";
+    this.name = 'user.create';
+    this.description = 'create user';
     this.outputExample = {};
 
     this.inputs = {
@@ -22,7 +23,7 @@ export class CreateUser extends Action {
   }
 
   async run(data: Partial<ActionProcessor<Action>>)  {
-    const { email, password } = data.params;
+    const { email, password } = data.params as ICreateUser;
 
     const otherUser = await UserModel.query().findOne({ email });
     if (otherUser) {

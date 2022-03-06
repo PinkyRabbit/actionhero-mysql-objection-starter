@@ -1,8 +1,9 @@
-import { URL } from "url";
+import { URL } from 'url';
+import * as redis from 'ioredis';
 
-const namespace = "redis";
+const namespace = 'redis';
 
-declare module "actionhero" {
+declare module 'actionhero' {
   export interface ActionheroConfigInterface {
     [namespace]: ReturnType<typeof DEFAULT[typeof namespace]>;
   }
@@ -15,16 +16,16 @@ declare module "actionhero" {
 
 export const DEFAULT = {
   [namespace]: () => {
-    const konstructor = require("ioredis");
-    let protocol = process.env.REDIS_SSL ? "rediss" : "redis";
-    let host = process.env.REDIS_HOST || "127.0.0.1";
+    const konstructor = redis;
+    let protocol = process.env.REDIS_SSL ? 'rediss' : 'redis';
+    let host = process.env.REDIS_HOST || '127.0.0.1';
     let port = process.env.REDIS_PORT || 6379;
-    let db = process.env.REDIS_DB || process.env.JEST_WORKER_ID || "0";
+    let db = process.env.REDIS_DB || process.env.JEST_WORKER_ID || '0';
     let password = process.env.REDIS_PASSWORD || null;
 
     if (process.env.REDIS_URL) {
       const parsed = new URL(process.env.REDIS_URL);
-      if (parsed.protocol) protocol = parsed.protocol.split(":")[0];
+      if (parsed.protocol) protocol = parsed.protocol.split(':')[0];
       if (parsed.password) password = parsed.password;
       if (parsed.hostname) host = parsed.hostname;
       if (parsed.port) port = parsed.port;
@@ -36,14 +37,15 @@ export const DEFAULT = {
       port,
       host,
       password,
-      db: parseInt(db),
+      db: parseInt(db, 10),
       // ssl options
-      tls: protocol === "rediss" ? { rejectUnauthorized: false } : undefined,
+      tls: protocol === 'rediss' ? { rejectUnauthorized: false } : undefined,
       // you can learn more about retryStrategy @ https://github.com/luin/ioredis#auto-reconnect
       retryStrategy: (times: number) => {
         if (times === 1) {
-          console.error(
-            "Unable to connect to Redis - please check your Redis config!"
+          // eslint-disable-next-line no-console
+          console.log(
+            'Unable to connect to Redis - please check your Redis config!'
           );
           return 5000;
         }

@@ -1,18 +1,19 @@
-import * as bcrypt from "bcrypt";
-import { api } from "actionhero";
+/*
+import * as bcrypt from 'bcrypt';
+import { api } from 'actionhero';
 
 const saltRounds = 10;
-const usersHash = "users";
+const usersHash = 'users';
 
 export async function add(userName: string, password: string) {
     const savedUser = await redis().hget(usersHash, userName);
     if (savedUser) {
-        throw new Error("userName already exists");
+        throw new Error('userName already exists');
     }
     const hashedPassword = await cryptPassword(password);
     const data = {
-        userName: userName,
-        hashedPassword: hashedPassword,
+        userName,
+        hashedPassword,
         createdAt: new Date().getTime(),
     };
 
@@ -61,3 +62,4 @@ async function comparePassword(hashedPassword: string, userPassword: string) {
 function redis() {
     return api.redis.clients.client;
 }
+*/

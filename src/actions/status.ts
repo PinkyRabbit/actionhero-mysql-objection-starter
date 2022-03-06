@@ -1,67 +1,53 @@
-import { api, id, task, Action, actionheroVersion } from "actionhero";
-import { PackageJson } from "type-fest";
-import * as path from "path";
-import * as fs from "fs";
+import { api, id, task, Action, actionheroVersion } from 'actionhero';
+import { name, version, description } from '../../package.json';
+import { NodeStatus } from '../enums';
 
 // These values are probably good starting points, but you should expect to tweak them for your application
 const maxMemoryAlloted = process.env.maxMemoryAlloted || 500;
 const maxResqueQueueLength = process.env.maxResqueQueueLength || 1000;
 
-enum StatusMessages {
-  healthy = "Node Healthy",
-  unhealthy = "Node Unhealthy",
-}
-
-const packageJSON: PackageJson = JSON.parse(
-  fs
-    .readFileSync(
-      path.normalize(path.join(__dirname, "..", "..", "package.json"))
-    )
-    .toString()
-);
-
 export class Status extends Action {
   constructor() {
     super();
-    this.name = "status";
-    this.description = "I will return some basic information about the API";
+    this.name = 'status';
+    this.description = 'I will return some basic information about the API';
     this.outputExample = {
-      id: "192.168.2.11",
-      actionheroVersion: "9.4.1",
+      id: '192.168.2.11',
+      actionheroVersion: '9.4.1',
       uptime: 10469,
     };
   }
 
   async run() {
-    let nodeStatus = StatusMessages.healthy;
+    let nodeStatus = NodeStatus.HEALTHY;
     const problems: string[] = [];
 
     const consumedMemoryMB =
       Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100;
     if (consumedMemoryMB > maxMemoryAlloted) {
-      nodeStatus = StatusMessages.unhealthy;
+      nodeStatus = NodeStatus.UNHEALTHY;
       problems.push(`Using more than ${maxMemoryAlloted} MB of RAM/HEAP`);
     }
 
     let resqueTotalQueueLength = 0;
     const details = await task.details();
-    let length = 0;
-    Object.keys(details.queues).forEach((q) => {
-      length += details.queues[q].length;
+    let resultLength = 0;
+    Object.keys(details.queues).forEach((key: string) => {
+      resultLength += details.queues[key] && (details.queues[key] as string).length || 0;
     });
-    resqueTotalQueueLength = length;
+    resqueTotalQueueLength = resultLength;
 
     if (length > maxResqueQueueLength) {
-      nodeStatus = StatusMessages.unhealthy;
+      nodeStatus = NodeStatus.UNHEALTHY;
       problems.push(`Resque Queues over ${maxResqueQueueLength} jobs`);
     }
 
     return {
-      id: id,
-      actionheroVersion: actionheroVersion,
-      name: packageJSON.name as string,
-      description: packageJSON.description as string,
-      version: packageJSON.version as string,
+      id,
+      actionheroVersion,
+      name,
+      description,
+      version,
       uptime: new Date().getTime() - api.bootTime,
       consumedMemoryMB,
       resqueTotalQueueLength,

@@ -1,8 +1,8 @@
-import { ActionProcessor, Connection } from "actionhero";
+import { ActionProcessor, Connection } from 'actionhero';
 
-const namespace = "errors";
+const namespace = 'errors';
 
-declare module "actionhero" {
+declare module 'actionhero' {
   export interface ActionheroConfigInterface {
     [namespace]: ReturnType<typeof DEFAULT[typeof namespace]>;
   }
@@ -38,7 +38,7 @@ export const DEFAULT = {
           },
           specHelper: (error: NodeJS.ErrnoException) => {
             if (error.message) {
-              return "Error: " + String(error.message);
+              return 'Error: ' + String(error.message);
             } else {
               return error;
             }
@@ -46,7 +46,7 @@ export const DEFAULT = {
         },
         // See ActionProcessor#applyDefaultErrorLogLineFormat to see an example of how to customize
         actionProcessor:
-          null as ActionProcessor<any>["applyDefaultErrorLogLineFormat"],
+          null as ActionProcessor<any>['applyDefaultErrorLogLineFormat'],
       },
 
       // ///////////
@@ -56,10 +56,10 @@ export const DEFAULT = {
       // When a params for an action is invalid
       invalidParams: (
         data: ActionProcessor<any>,
-        validationErrors: Array<string | Error>
+        validationErrors: (string | Error)[]
       ) => {
         if (validationErrors.length >= 0) return validationErrors[0];
-        return "validation error";
+        return 'validation error';
       },
 
       // When a required param for an action is not provided
@@ -68,8 +68,8 @@ export const DEFAULT = {
       },
 
       // user requested an unknown action
-      unknownAction: (data: ActionProcessor<any>) => {
-        return `unknown action or invalid apiVersion`;
+      unknownAction: () => {
+        return 'unknown action or invalid apiVersion';
       },
 
       // action not useable by this client/server type
@@ -78,14 +78,14 @@ export const DEFAULT = {
       },
 
       // action failed because server is mid-shutdown
-      serverShuttingDown: (data: ActionProcessor<any>) => {
-        return `the server is shutting down`;
+      serverShuttingDown: () => {
+        return 'the server is shutting down';
       },
 
       // action failed because this client already has too many pending actions
       // limit defined in api.config.general.simultaneousActions
-      tooManyPendingActions: (data: ActionProcessor<any>) => {
-        return `you have too many pending requests`;
+      tooManyPendingActions: () => {
+        return 'you have too many pending requests';
       },
 
       // Decorate your response based on Error here.
@@ -104,13 +104,13 @@ export const DEFAULT = {
 
       // The body message to accompany 404 (file not found) errors regarding flat files
       // You may want to load in the content of 404.html or similar
-      fileNotFound: (connection: Connection) => {
-        return `that file is not found`;
+      fileNotFound: () => {
+        return 'that file is not found';
       },
 
       // user didn't request a file
-      fileNotProvided: (connection: Connection) => {
-        return `file is a required param to send a file`;
+      fileNotProvided: () => {
+        return 'file is a required param to send a file';
       },
 
       // something went wrong trying to read the file
@@ -130,8 +130,8 @@ export const DEFAULT = {
         return `verb not found or not allowed (${verb})`;
       },
 
-      connectionRoomAndMessage: (connection: Connection) => {
-        return `both room and message are required`;
+      connectionRoomAndMessage: () => {
+        return 'both room and message are required';
       },
 
       connectionNotInRoom: (connection: Connection, room: string) => {
@@ -142,20 +142,20 @@ export const DEFAULT = {
         return `connection already in this room (${room})`;
       },
 
-      connectionRoomHasBeenDeleted: (room: string) => {
-        return "this room has been deleted";
+      connectionRoomHasBeenDeleted: () => {
+        return 'this room has been deleted';
       },
 
-      connectionRoomNotExist: (room: string) => {
-        return "room does not exist";
+      connectionRoomNotExist: () => {
+        return 'room does not exist';
       },
 
-      connectionRoomExists: (room: string) => {
-        return "room exists";
+      connectionRoomExists: () => {
+        return 'room exists';
       },
 
       connectionRoomRequired: () => {
-        return "a room is required";
+        return 'a room is required';
       },
     };
   },

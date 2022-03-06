@@ -1,8 +1,8 @@
 import { snakeCaseMappers } from 'objection';
-import { wrapper } from "./wrapper";
+import { getModel } from './base.model';
 import { IUser } from './user.model.d';
 
-const Model = wrapper();
+const Model = getModel();
 
 interface UserModel extends IUser {}
 
@@ -31,8 +31,8 @@ class UserModel extends Model {
         email: { type: 'string', minLength: 1, maxLength: 255 },
         password: { type: 'string', minLength: 1, maxLength: 255 },
         role: { type: 'string', enum: ['super_admin', 'admin', 'viewer'] },
-        createdAt: { type: 'string', format: "date-time" },
-        updatedAt: { type: 'string', format: "date-time" },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
         deletedAt: { type: ['string', 'null'], format: 'date-time' },
       }
     };

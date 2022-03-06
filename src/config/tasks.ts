@@ -1,9 +1,9 @@
-import { ActionheroLogLevel } from "actionhero";
-import { MultiWorker, Queue, Scheduler } from "node-resque";
+import { ActionheroLogLevel } from 'actionhero';
+import { MultiWorker, Queue, Scheduler } from 'node-resque';
 
-const namespace = "tasks";
+const namespace = 'tasks';
 
-declare module "actionhero" {
+declare module 'actionhero' {
   export interface ActionheroConfigInterface {
     [namespace]: ReturnType<typeof DEFAULT[typeof namespace]>;
   }
@@ -18,33 +18,33 @@ export const DEFAULT = {
       scheduler: false,
 
       // what queues should the taskProcessors work?
-      queues: ["*"] as string[] | (() => Promise<string[]>),
+      queues: ['*'] as string[] | (() => Promise<string[]>),
       // Or, rather than providing a static list of `queues`, you can define a method that returns the list of queues.
       // queues: async () => { return ["queueA", "queueB"]; } as string[] | (() => Promise<string[]>)>,
 
       // Logging levels of task workers
       workerLogging: {
-        failure: "error" as ActionheroLogLevel, // task failure
-        success: "info" as ActionheroLogLevel, // task success
-        start: "info" as ActionheroLogLevel,
-        end: "info" as ActionheroLogLevel,
-        cleaning_worker: "info" as ActionheroLogLevel,
-        poll: "debug" as ActionheroLogLevel,
-        job: "debug" as ActionheroLogLevel,
-        pause: "debug" as ActionheroLogLevel,
-        reEnqueue: "debug" as ActionheroLogLevel,
-        internalError: "error" as ActionheroLogLevel,
-        multiWorkerAction: "debug" as ActionheroLogLevel,
+        failure: 'error' as ActionheroLogLevel, // task failure
+        success: 'info' as ActionheroLogLevel, // task success
+        start: 'info' as ActionheroLogLevel,
+        end: 'info' as ActionheroLogLevel,
+        cleaning_worker: 'info' as ActionheroLogLevel,
+        poll: 'debug' as ActionheroLogLevel,
+        job: 'debug' as ActionheroLogLevel,
+        pause: 'debug' as ActionheroLogLevel,
+        reEnqueue: 'debug' as ActionheroLogLevel,
+        internalError: 'error' as ActionheroLogLevel,
+        multiWorkerAction: 'debug' as ActionheroLogLevel,
       },
       // Logging levels of the task scheduler
       schedulerLogging: {
-        start: "info" as ActionheroLogLevel,
-        end: "info" as ActionheroLogLevel,
-        poll: "debug" as ActionheroLogLevel,
-        enqueue: "debug" as ActionheroLogLevel,
-        working_timestamp: "debug" as ActionheroLogLevel,
-        reEnqueue: "debug" as ActionheroLogLevel,
-        transferred_job: "debug" as ActionheroLogLevel,
+        start: 'info' as ActionheroLogLevel,
+        end: 'info' as ActionheroLogLevel,
+        poll: 'debug' as ActionheroLogLevel,
+        enqueue: 'debug' as ActionheroLogLevel,
+        working_timestamp: 'debug' as ActionheroLogLevel,
+        reEnqueue: 'debug' as ActionheroLogLevel,
+        transferred_job: 'debug' as ActionheroLogLevel,
       },
       // how long to sleep between jobs / scheduler checks
       timeout: 5000,

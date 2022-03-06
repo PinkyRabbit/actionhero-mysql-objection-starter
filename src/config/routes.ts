@@ -1,8 +1,8 @@
-import { RoutesConfig } from "actionhero";
+import { RoutesConfig } from 'actionhero';
 
-const namespace = "routes";
+const namespace = 'routes';
 
-declare module "actionhero" {
+declare module 'actionhero' {
   export interface ActionheroConfigInterface {
     [namespace]: ReturnType<typeof DEFAULT[typeof namespace]>;
   }
@@ -12,17 +12,18 @@ export const DEFAULT: { [namespace]: () => RoutesConfig } = {
   [namespace]: () => {
     return {
       get: [
-        { path: "/status", action: "status" },
-        { path: "/swagger", action: "swagger" },
-        { path: "/createChatRoom", action: "createChatRoom" },
+        { path: '/status', action: 'status' },
+        { path: '/swagger', action: 'swagger' },
+        { path: '/createChatRoom', action: 'createChatRoom' },
       ],
       post: [
-        { path: "/user", action: "user.create" },
+        { path: '/user', action: 'user.create' },
       ]
 
       /* ---------------------
       For web clients (http and https) you can define an optional RESTful mapping to help route requests to actions.
-      If the client doesn't specify and action in a param, and the base route isn't a named action, the action will attempt to be discerned from this routes.js file.
+      If the client doesn't specify and action in a param, and the base route isn't a named action,
+      the action will attempt to be discerned from this routes.js file.
 
       Learn more here: https://www.actionherojs.com/tutorials/web-server#Routes
 

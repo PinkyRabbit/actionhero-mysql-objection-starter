@@ -21,3 +21,6 @@ cache.dump
 # Editor-specific
 /nbproject/*
 /.idea/*
+
+#react
+public/react-base

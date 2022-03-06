@@ -1,8 +1,8 @@
-import { PluginConfig } from "actionhero";
+import { PluginConfig } from 'actionhero';
 
-const namespace = "plugins";
+const namespace = 'plugins';
 
-declare module "actionhero" {
+declare module 'actionhero' {
   export interface ActionheroConfigInterface {
     [namespace]: ReturnType<typeof DEFAULT[typeof namespace]>;
   }
