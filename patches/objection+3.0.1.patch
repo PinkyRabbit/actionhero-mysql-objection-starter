@@ -1,0 +1,36 @@
+diff --git a/node_modules/objection/lib/model/AjvValidator.js b/node_modules/objection/lib/model/AjvValidator.js
+index 1158c62..6a6f7b0 100644
+--- a/node_modules/objection/lib/model/AjvValidator.js
++++ b/node_modules/objection/lib/model/AjvValidator.js
+@@ -12,6 +12,14 @@ const getAjv = once(() => {
+   }
+ });
+ 
++const getAjvFormats = once(() => {
++  try {
++    return require('ajv-formats');
++  } catch (err) {
++    throw new Error('Optional ajv-formats dependency not installed. Please run `npm install ajv-formats --save`');
++  }
++});
++
+ class AjvValidator extends Validator {
+   static init(self, conf) {
+     super.init(self, conf);
+@@ -21,6 +29,7 @@ class AjvValidator extends Validator {
+     });
+ 
+     const Ajv = getAjv();
++    const addFormats = getAjvFormats();
+ 
+     // Create a normal Ajv instance.
+     self.ajv = new Ajv(
+@@ -32,6 +41,8 @@ class AjvValidator extends Validator {
+       )
+     );
+ 
++    addFormats(self.ajv);
++
+     // Create an instance that doesn't set default values. We need this one
+     // to validate `patch` objects (objects that have a subset of properties).
+     self.ajvNoDefaults = new Ajv(

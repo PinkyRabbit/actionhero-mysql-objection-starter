@@ -4,12 +4,11 @@ module.exports = async () => {
   const config = baseConfig.objection();
   config.migrations = {
     directory: './migrations',
-    extension: 'ts',
-    loadExtensions: ['.js'],
+    extension: 'js',
   }
   config.seeds = {
     directory: './seeds',
-    extension: 'ts',
+    extension: 'js',
   };
   return config;
 };

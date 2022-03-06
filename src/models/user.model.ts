@@ -1,78 +1,51 @@
+import { snakeCaseMappers } from 'objection';
 import { wrapper } from "./wrapper";
-import {RolesEnum} from "../enums";
+import { IUser } from './user.model.d';
 
-const Model = wrapper(true, ['email']);
+const Model = wrapper();
 
-export class User extends Model {
-    email: string;
-    password: string;
-    created_at: string;
-    updated_at: string;
-    role: RolesEnum;
+interface UserModel extends IUser {}
 
-    static get tableName() {
-        return 'Users';
-    }
+class UserModel extends Model {
+  public static tableName = 'Users';
 
-    static get hidden() {
-        return [
-            'resetPasswordCode',
-            'resetPasswordCodeTimestamp',
-            'password',
-        ];
-    }
+  static get idColumn() {
+    return 'id';
+  }
 
-    static get jsonSchema() {
-        return {
-            type: 'object',
-            required: ['email', 'password', 'role'],
-            properties: {
-                id: { type: 'integer' },
-                email: { type: 'string', minLength: 1, maxLength: 255 },
-                password: { type: 'string', minLength: 1, maxLength: 255 },
-                role: { type: 'string', enum: ['super_admin', 'admin', 'viewer'] },
-                resetPasswordCode: { type: ['string', null] },
-                resetPasswordCodeTimestamp: { type: ['string', null], format: 'date-time' },
-                createdAt: { type: 'string', format: 'date-time' },
-                updatedAt: { type: 'string', format: 'date-time' },
-                deletedAt: { type: ['string', null], format: 'date-time' },
-            },
-        };
-    }
+  static get pickJsonSchemaProperties() {
+    return true;
+  }
 
-    static get roles() {
-        return {
-            SUPER_ADMIN: 'super_admin',
-            ADMIN: 'admin',
-            VIEWER: 'viewer',
-        };
-    }
+  static get columnNameMappers() {
+    return snakeCaseMappers();
+  }
 
-    static get timestamp() {
-        return true;
-    }
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      additionalProperties: false,
+      required: ['email', 'password'],
+      properties: {
+        id: { type: 'integer' },
+        email: { type: 'string', minLength: 1, maxLength: 255 },
+        password: { type: 'string', minLength: 1, maxLength: 255 },
+        role: { type: 'string', enum: ['super_admin', 'admin', 'viewer'] },
+        createdAt: { type: 'string', format: "date-time" },
+        updatedAt: { type: 'string', format: "date-time" },
+        deletedAt: { type: ['string', 'null'], format: 'date-time' },
+      }
+    };
+  }
 
-    static get relationMappings() {
-        return {};
-    }
+  $beforeInsert() {
+    this.createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    this.updatedAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  }
 
-    $beforeInsert() {
-        this.created_at = new Date().toISOString();
-    }
-
-    $beforeUpdate() {
-        this.updated_at = new Date().toISOString();
-    }
-
-    isSuperAdmin() {
-        return this.role === User.roles.SUPER_ADMIN;
-    }
-
-    isAdmin() {
-        return this.role === User.roles.ADMIN;
-    }
-
-    isViewer() {
-        return this.role === User.roles.VIEWER;
-    }
+  $beforeUpdate() {
+    this.updatedAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  }
 }
+
+export default UserModel;

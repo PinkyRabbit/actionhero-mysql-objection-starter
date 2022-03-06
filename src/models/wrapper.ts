@@ -5,7 +5,7 @@ import objectionSoftDelete from 'objection-js-soft-delete';
 import { default as visibility } from 'objection-visibility';
 
 const softDelete = objectionSoftDelete({
-    columnName: 'deleted_at',
+    columnName: 'deletedAt',
     deletedValue: new Date(),
     notDeletedValue: null,
 });

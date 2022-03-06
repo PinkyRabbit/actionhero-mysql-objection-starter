@@ -1,6 +1,6 @@
 import { Action, ActionProcessor, api } from "actionhero";
 import * as Joi from 'joi';
-import { User } from "../../models";
+import { UserModel } from "../../models";
 
 export class CreateUser extends Action {
   constructor() {
@@ -24,11 +24,11 @@ export class CreateUser extends Action {
   async run(data: Partial<ActionProcessor<Action>>)  {
     const { email, password } = data.params;
 
-    const otherUser = await User.query().findOne({ email }).whereNull('deletedAt');
+    const otherUser = await UserModel.query().findOne({ email });
     if (otherUser) {
       throw new Error(api.__('err.user.exists'));
     }
-    await User.query().insert({ email, password });
+    await UserModel.query().insert({ email, password });
     data.response.ok = true;
   }
 

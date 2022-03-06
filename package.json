@@ -16,10 +16,11 @@
     "joi": "^17.6.0",
     "knex": "^0.95.14",
     "mysql": "^2.18.1",
-    "objection": "^3.0.0",
+    "objection": "^3.0.1",
     "objection-js-soft-delete": "^3.0.1",
     "objection-unique": "^1.2.2",
     "objection-visibility": "^1.1.0",
+    "patch-package": "^6.4.7",
     "winston": "latest",
     "ws": "latest"
   },
@@ -40,7 +41,7 @@
   "scripts": {
     "start": "nodemon --config nodemon.json",
     "actionhero": "actionhero",
-    "postinstall": "npm run build",
+    "postinstall": "patch-package && npm run build",
     "dev": "ts-node-dev --no-deps --transpile-only ./src/server",
     "debug": "tsc && ts-node-dev --transpile-only --no-deps --inspect -- ./src/server",
     "nodemon:debug": "nodemon --config nodemon.json --inspect-brk src/server.ts",
@@ -52,7 +53,10 @@
     "pretty": "prettier --write src/*/** __tests__/*/**",
     "ah:action": "actionhero generate-action --name",
     "ah:init": "actionhero generate-initializer --name",
-    "knex": "knex --knexfile knex/knexfile.ts"
+    "knex": "knex --knexfile knex/knexfile.ts",
+    "knex:add": "knex --knexfile knex/knexfile.ts migrate:make",
+    "knex:migrate": "knex --knexfile knex/knexfile.ts migrate:latest",
+    "knex:rollback": "knex --knexfile knex/knexfile.ts migrate:rollback --all"
   },
   "jest": {
     "testEnvironment": "node",
