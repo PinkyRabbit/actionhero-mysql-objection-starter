@@ -16,6 +16,10 @@ _visit www.actionherojs.com for more information_
 
 `npm test`
 
+## React
+
+I need JWT auth into my skeleton app. So I cloned [react-redux-jwt-authentication-example](https://github.com/cornflourblue/react-redux-jwt-authentication-example) and update to let it work with my codebase.
+
 ## knex
 
 `npm run knex migrate:make create-users`
