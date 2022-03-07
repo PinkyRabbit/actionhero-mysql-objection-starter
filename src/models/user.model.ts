@@ -30,6 +30,8 @@ class UserModel extends Model {
         id: { type: 'integer' },
         email: { type: 'string', minLength: 1, maxLength: 255 },
         password: { type: 'string', minLength: 1, maxLength: 255 },
+        firstName: { type: 'string', minLength: 1, maxLength: 255 },
+        lastName: { type: 'string', minLength: 1, maxLength: 255 },
         role: { type: 'string', enum: ['super_admin', 'admin', 'viewer'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
