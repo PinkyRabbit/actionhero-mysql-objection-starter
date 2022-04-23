@@ -4,7 +4,7 @@
             "email": "Invalid email. Please check it."
         },
         "user": {
-            "exists": "Email is already taken by other users",
+            "exists": "This email address is already in use",
             "auth": "Incorrect email or password"
         }
     }

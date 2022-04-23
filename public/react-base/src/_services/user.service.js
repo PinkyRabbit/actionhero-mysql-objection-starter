@@ -7,11 +7,11 @@ export const userService = {
     getAll
 };
 
-function login(username, password) {
+function login(email, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ email, password })
     };
 
     return fetch(`${config.apiUrl}/user/login`, requestOptions)
@@ -48,7 +48,7 @@ function handleResponse(response) {
                 location.reload(true);
             }
 
-            const error = (data && data.message) || response.statusText;
+            const error = (data && data.message || data.error) || response.statusText || response.error;
             return Promise.reject(error);
         }
 

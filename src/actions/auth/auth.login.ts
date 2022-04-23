@@ -27,7 +27,8 @@ export class Login extends Action {
 
     const user = await UserModel.query().findOne({ email, password });
     if (!user) {
-      throw new Error(api.__('err.user.exists'));
+      data.connection.setStatusCode(400);
+      throw new Error(api.__('err.user.auth'));
     }
     data.response.data = user;
     data.response.ok = true;
