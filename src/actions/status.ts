@@ -37,7 +37,7 @@ export class Status extends Action {
     });
     resqueTotalQueueLength = resultLength;
 
-    if (length > maxResqueQueueLength) {
+    if (resultLength > maxResqueQueueLength) {
       nodeStatus = NodeStatus.UNHEALTHY;
       problems.push(`Resque Queues over ${maxResqueQueueLength} jobs`);
     }
